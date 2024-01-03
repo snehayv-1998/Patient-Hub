@@ -9,8 +9,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
-
 @Entity
+@Table(name = "patient")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

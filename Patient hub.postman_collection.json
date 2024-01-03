@@ -29,16 +29,17 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\":\"555\",\n    \"name\":\"bob\"\n}"
+					"raw": "{\n    \"id\":\"555\",\n    \"name\":\"orry\"\n}"
 				},
 				"url": {
-					"raw": "localhost:8080/patients",
+					"raw": "localhost:8080/patients/create",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"patients"
+						"patients",
+						"create"
 					]
 				},
 				"description": "Creates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n*   `info` — An **object** that contains the following properties:\n    *   `name` — A **string** value that contains the collection's name.\n    *   `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n*   `item` — An **object** that contains the HTTP request and response information.\n    *   `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n*   For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    *   `info` object — Use the `definitions.info` entry.\n    *   `item` object — Use the `definitions.items` entry.\n*   For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json)."
@@ -293,14 +294,14 @@
 					"raw": "{\n    \"id\": \"555\",\n    \"name\": \"anny\"\n}"
 				},
 				"url": {
-					"raw": "localhost:8080/patients/888",
+					"raw": "localhost:8080/patients/update",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"patients",
-						"888"
+						"update"
 					]
 				},
 				"description": "Updates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n- `info` — An **object** that contains the following properties:\n    - `name` — A **string** value that contains the collection's name.\n    - `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n- `item` — An **object** that contains the HTTP request and response information.\n    - `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n- For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    - `info` object — Use the `definitions.info` entry.\n    - `item` object — Use the `definitions.items` entry.\n- For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).\n    \n\n### Important\n\nUse caution when using this endpoint. The system will replace the existing collection with the values passed in the request body."
@@ -623,21 +624,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/patients",
+					"raw": "localhost:8080/patients/fetchAll",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"patients"
-					],
-					"query": [
-						{
-							"key": "workspace",
-							"value": "{{workspaceId}}",
-							"description": "Optional. A workspace ID.",
-							"disabled": true
-						}
+						"patients",
+						"fetchAll"
 					]
 				},
 				"description": "Gets all of your [collections](https://www.getpostman.com/docs/collections). The response includes all of your subscribed collections."
@@ -787,13 +781,14 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/patients/555",
+					"raw": "localhost:8080/patients/delete/555",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"patients",
+						"delete",
 						"555"
 					]
 				},
@@ -925,14 +920,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/patients/888",
+					"raw": "localhost:8080/patients/555",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"patients",
-						"888"
+						"555"
 					]
 				},
 				"description": "Gets information about a collection. For a complete list of this endpoint's possible values, use the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json)."

@@ -39,9 +39,10 @@ public class PatientServiceImpl implements PatientService{
 
     @Override
     @CachePut(cacheNames = "patients")
-    public Patient updatePatient(Long id, Patient patient) {
-        patient.setId(id);
-        return patientRepository.save(patient);
+    public Patient updatePatient(Patient patient) {
+        Patient patientData = getPatientById(patient.getId());
+        patientData.setName(patient.getName());
+        return patientRepository.save(patientData);
     }
 
     @Override

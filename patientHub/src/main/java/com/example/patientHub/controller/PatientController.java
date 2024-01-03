@@ -24,7 +24,7 @@ public class PatientController {
     @Autowired
     private PatientService patientService;
 
-    @GetMapping
+    @GetMapping("/fetchAll")
     @ApiOperation("Get all patients")
     @ApiResponse(code = 200, message = "List of patients retrieved successfully")
     public ResponseEntity<List<Patient>> getAllPatients() {
@@ -44,7 +44,7 @@ public class PatientController {
         return ResponseEntity.ok(patient);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     @ApiOperation("Create a new patient")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Patient created successfully"),
@@ -56,7 +56,7 @@ public class PatientController {
         return new ResponseEntity<>(createdPatient, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update")
     @ApiOperation("Update an existing patient")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Patient updated successfully"),
@@ -64,13 +64,12 @@ public class PatientController {
             @ApiResponse(code = 400, message = "Invalid input")
     })
     public ResponseEntity<Patient> updatePatient(
-            @ApiParam(value = "ID of the patient to be updated", required = true) @PathVariable Long id,
             @ApiParam(value = "Updated patient information", required = true) @RequestBody Patient patient) {
-        Patient updatedPatient = patientService.updatePatient(id, patient);
+        Patient updatedPatient = patientService.updatePatient(patient);
         return ResponseEntity.ok(updatedPatient);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     @ApiOperation("Delete a patient by ID")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "Patient deleted successfully"),

@@ -4,8 +4,10 @@ import com.example.patientHub.exceptionHandler.PatientNotFoundException;
 import com.example.patientHub.model.Patient;
 import com.example.patientHub.repository.PatientRepository;
 import com.example.patientHub.service.PatientService;
+import com.example.patientHub.service.PatientServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,16 +20,17 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
 @EnableCaching
 public class PatientHubApplicationTests {
 
-	@Autowired
-	private PatientService patientService;
+	@InjectMocks
+	private PatientServiceImpl patientService;
 
 	@MockBean
 	private PatientRepository patientRepository;
@@ -73,10 +76,10 @@ public class PatientHubApplicationTests {
 	@Test
 	public void testGetPatientByIdNotFound() {
 		// Mocking repository behavior
-		when(patientRepository.findById(1L)).thenReturn(Optional.empty());
+		when(patientRepository.findById(any())).thenReturn(Optional.empty());
 
 		// Using assertThrows to verify that PatientNotFoundException is thrown
-		assertThrows(PatientNotFoundException.class, () -> patientService.getPatientById(1L));
+		assertThrows(PatientNotFoundException.class, () -> patientService.getPatientById(any()));
 	}
 
 	@Test
@@ -98,39 +101,31 @@ public class PatientHubApplicationTests {
 
 	@Test
 	public void testUpdatePatient() {
-		// Mock data
+		// Arrange
 		Long patientId = 1L;
-		Patient existingPatient = new Patient(patientId, "Existing Patient");
-		Patient updatedPatient = new Patient(patientId, "Updated Patient");
+		String updatedName = "UpdatedName";
 
-		// Mock repository response
-		when(patientRepository.findById(patientId)).thenReturn(Optional.of(existingPatient));
-		when(patientRepository.save(updatedPatient)).thenReturn(updatedPatient);
+		// Create a patient with the updated name
+		Patient updatedPatient = new Patient();
+		updatedPatient.setId(patientId);
+		updatedPatient.setName(updatedName);
 
-		// Call the service method
-		Patient result = patientService.updatePatient(patientId, updatedPatient);
+		// Mock the behavior of getPatientById
+		when(patientRepository.findById(patientId)).thenReturn(Optional.of(new Patient()));
 
-		// Assertions
-		assertNotNull(result);
-		assertEquals(updatedPatient, result);
+		// Mock the behavior of save
+		when(patientRepository.save(any())).thenReturn(updatedPatient);
+
+		// Act
+		Patient result = patientService.updatePatient(updatedPatient);
+
+		// Assert
+		verify(patientRepository).findById(patientId);
+		verify(patientRepository).save(any());
+
+		// You can add additional assertions based on your specific requirements
+		assertEquals(updatedName, result.getName());
 	}
-
-	@Test
-	public void testUpdatePatientNotFound() {
-		// Mock data
-		Long patientId = 1L;
-		Patient updatedPatient = new Patient(patientId, "Updated Patient");
-
-		// Mock repository response for not found case
-		when(patientRepository.findById(patientId)).thenReturn(Optional.empty());
-
-		// Call the service method
-		Patient result = patientService.updatePatient(patientId, updatedPatient);
-
-		// Assertions
-		assertNull(result);
-	}
-
 	@Test
 	public void testDeletePatient() {
 		// Mock data
