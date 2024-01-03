@@ -9,6 +9,7 @@ The Patient Hub project is a Spring Boot-based web application designed to manag
 - **Java**: Core programming language.
 - **Spring Boot**: Framework for building Java-based applications.
 - **MySQL**: Relational database for storing patient data.
+- **Mockito**: For unit testing.
 - **Docker**: Containerization tool for easy deployment.
 - **Swagger**: API documentation tool for clear and interactive documentation.
 - **Postman**: API testing and development environment.
